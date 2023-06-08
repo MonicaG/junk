@@ -29,6 +29,6 @@ jobs:
         run: |
           short_sha="sha-"$(echo ${{ github.sha }} | cut -c -7)
           echo $short_sha
-          yq -i '${{ env.YAML_PROPERTY_PATH }} = "$short_sha"' ${{ env.TARGET_FILE }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ short_sha }}"' ${{ env.TARGET_FILE }}
           cat ${{ env.TARGET_FILE }}
         
