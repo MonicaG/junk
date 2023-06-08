@@ -30,4 +30,5 @@ jobs:
           export SHA_TAG="sha-"$(echo ${{ github.sha }} | cut -c -7)
           echo $SHA_TAG
           yq -i '${{ env.YAML_PROPERTY_PATH }} = "$SHA_TAG"' ${{ env.TARGET_FILE }}
+          cat ${{ env.TARGET_FILE }}
         
