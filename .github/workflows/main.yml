@@ -29,6 +29,6 @@ jobs:
         run: echo "GITHUB_SHA_SHORT="sha-"$(echo ${{ github.sha }} | cut -c -7)" >> $GITHUB_ENV
       - name: GitHub context
         run: |
-          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ env.GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
           cat ${{ env.TARGET_FILE }}
         
