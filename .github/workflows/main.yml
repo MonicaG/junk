@@ -27,8 +27,8 @@ jobs:
         run: echo ${{ steps.vars.outputs.sha_short }}
       - name: GitHub context
         run: |
-          export SHA_TAG="sha-"$(echo ${{ github.sha }} | cut -c -7)
-          echo $SHA_TAG
-          yq -i '${{ env.YAML_PROPERTY_PATH }} = "$SHA_TAG"' ${{ env.TARGET_FILE }}
+          short_sha="sha-"$(echo ${{ github.sha }} | cut -c -7)
+          echo $short_sha
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "$short_sha"' ${{ env.TARGET_FILE }}
           cat ${{ env.TARGET_FILE }}
         
