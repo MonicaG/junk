@@ -31,4 +31,21 @@ jobs:
         run: |
           yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ env.GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
           cat ${{ env.TARGET_FILE }}
-        
+      
+      - name: Create a temporary artifact downloads folder
+        run: mkdir downloads
+          
+      - name: Add artifacts to publish to the temp folder
+        run: |
+          cd downloads
+          echo 'alpha'    > alpha.html
+          echo 'bravo'    > bravo.html
+          echo 'charlie'  > charlie.html
+          cd ..
+    
+      - name: Step 3 - Use the Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v2
+        with: 
+          name: assets-for-download
+          path: downloads
+      
