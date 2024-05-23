@@ -48,4 +48,11 @@ jobs:
         with: 
           name: assets-for-download
           path: downloads
+
+      - name: Step 4 - secrets trial
+        env:
+          TEST: ${{ secrets.TEST_SECRET }}
+        run: |
+          echo -n "$TEST" 
+
       
