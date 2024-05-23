@@ -40,7 +40,8 @@ jobs:
           TEST: ${{ secrets.TEST_SECRET }}
         run: |
           cd downloads
-          echo $TEST      > alpha.html
+          echo $TEST
+          echo 'alpha'    > alpha.html
           echo 'bravo'    > bravo.html
           echo 'charlie'  > charlie.html
           cd ..
