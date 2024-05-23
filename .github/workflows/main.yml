@@ -36,9 +36,11 @@ jobs:
         run: mkdir downloads
           
       - name: Add artifacts to publish to the temp folder
+        env:
+          TEST: ${{ secrets.TEST_SECRET }}
         run: |
           cd downloads
-          echo 'alpha'    > alpha.html
+          echo $TEST      > alpha.html
           echo 'bravo'    > bravo.html
           echo 'charlie'  > charlie.html
           cd ..
@@ -48,11 +50,5 @@ jobs:
         with: 
           name: assets-for-download
           path: downloads
-
-      - name: Step 4 - secrets trial
-        env:
-          TEST: ${{ secrets.TEST_SECRET }}
-        run: |
-          echo -n "$TEST" 
 
       
