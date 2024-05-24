@@ -38,15 +38,12 @@ jobs:
       - name: Add artifacts to publish to the temp folder
         env:
           TEST: ${{ secrets.TEST_SECRET }}
+          TEST_PWD: ${{ secrets.TEST_PWD }}
         run: |
-          cd downloads
-          echo $TEST
-          echo 'alpha'    > alpha.html
-          echo 'bravo'    > bravo.html
-          echo 'charlie'  > charlie.html
-          cd ..
-    
-      - name: Step 3 - Use the Upload Artifact GitHub Action
+          echo $TEST > alpha.txt
+          zip -eP $TEST_PWD downloads/archive.zip alpha.txt
+          
+      - name: Use the Upload Artifact GitHub Action
         uses: actions/upload-artifact@v2
         with: 
           name: assets-for-download
