@@ -1,0 +1,5 @@
+- name: Debug log 2
+  id: debug_log_2
+  action: 'debug:log'
+  input:
+    message: Second log
