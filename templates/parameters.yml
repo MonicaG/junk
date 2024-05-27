@@ -1,0 +1,14 @@
+title: Provide information about your documentation
+required:
+  - title
+  - description
+properties:
+  title:
+    title: Title
+    type: string
+    description: A title for your documentation. For example, "Whizzbang Service Developer's Guide".
+    ui:autofocus: true
+  description:
+    title: Description
+    type: string
+    description: A description for your documentation
