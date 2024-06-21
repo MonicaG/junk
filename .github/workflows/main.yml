@@ -4,10 +4,17 @@ env:
   YAML_PROPERTY_PATH: '.metadata.name'
   TARGET_FILE: 'catalog-info.yaml'
   
-on: [push, workflow_dispatch]
+on: 
+  push:
+    branches:
+      - main
+      - test
+  workflow_dispatch:
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+    environment: 
+      name: ${{ github.ref }}
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -37,10 +44,10 @@ jobs:
           
       - name: Add artifacts to publish to the temp folder
         env:
-          TEST_PWD: ${{ secrets.TEST_PWD }}
+          FILE_PWD: ${{ secrets.FILE_PWD }}
         run: |
           echo 'alpha' > alpha.txt
-          zip -eP $TEST_PWD downloads/my_archive.zip alpha.txt
+          zip -eP $FILE_PWD downloads/my_archive.zip alpha.txt
 
       - name: Use the Upload Artifact GitHub Action
         uses: actions/upload-artifact@v2
