@@ -1,3 +1,3 @@
 # junk
-Junk repo for trying things out
+Junk repo for trying things out.
 
