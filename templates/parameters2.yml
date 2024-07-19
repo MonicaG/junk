@@ -1,0 +1,27 @@
+title: Provide meta data
+required:
+  - author
+  - licences
+properties:
+  author:
+    title: Author
+    type: string
+    description: The author
+    ui:autofocus: true
+  licences:
+    title: Description
+    type: string
+    description: |
+      Select a license for your technical documentation
+
+      [Visit the GitHub docs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
+      to read more about licensing your repository
+    default: CreativeCommons
+    enum:
+      - None
+      - CreativeCommons
+      - Apache2
+    enumNames:
+      - 'None'
+      - 'Creative Commons'
+      - 'Apache 2'
