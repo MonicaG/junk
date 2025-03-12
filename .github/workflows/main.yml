@@ -3,6 +3,7 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 env:
   YAML_PROPERTY_PATH: '.metadata.name'
   TARGET_FILE: 'catalog-info.yaml'
+  WORKING_DIR: 'junk'
   
 on: 
   push:
@@ -32,12 +33,12 @@ jobs:
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
-      - name: Set env
-        run: echo "GITHUB_SHA_SHORT="sha-"$(echo ${{ github.sha }} | cut -c -7)" >> $GITHUB_ENV
-      - name: GitHub context
-        run: |
-          yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ env.GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
-          cat ${{ env.TARGET_FILE }}
+      # - name: Set env
+      #   run: echo "GITHUB_SHA_SHORT="sha-"$(echo ${{ github.sha }} | cut -c -7)" >> $GITHUB_ENV
+      # - name: GitHub context
+      #   run: |
+      #     yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ env.GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
+      #     cat ${{ env.TARGET_FILE }}
       
       - name: Create a temporary artifact downloads folder
         run: mkdir downloads
@@ -54,5 +55,25 @@ jobs:
         with: 
           name: assets-for-download
           path: downloads
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 'Configure git'
+        # From https://github.com/orgs/community/discussions/26560#discussioncomment-3531273
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Update image tag
+        run: |
+          cd ${{ env.WORKING_DIR }}
+          yq -i '${{ env.YAML_PROPERTY_PATH }} = "test-test"' ${{ env.TARGET_FILE }}
+
+      - name: Commit and push update
+        run: |
+          git commit -am "Update catalog tag"
+          git push origin
 
       
