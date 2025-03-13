@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: junk
+  name: test-test
   description: Just an empty repo
 spec:
   type: service
