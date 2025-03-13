@@ -65,7 +65,6 @@ jobs:
 
       - name: Update image tag
         run: |
-          cd ${{ env.WORKING_DIR }}
           yq -i '${{ env.YAML_PROPERTY_PATH }} = "test-test"' ${{ env.TARGET_FILE }}
 
       - name: Commit and push update
