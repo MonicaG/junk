@@ -21,7 +21,7 @@ jobs:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }} and the ref_name is ${{ github.ref_name }}."
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
@@ -40,24 +40,21 @@ jobs:
       #     yq -i '${{ env.YAML_PROPERTY_PATH }} = "${{ env.GITHUB_SHA_SHORT }}"' ${{ env.TARGET_FILE }}
       #     cat ${{ env.TARGET_FILE }}
       
-      - name: Create a temporary artifact downloads folder
-        run: mkdir downloads
+      # # - name: Create a temporary artifact downloads folder
+      # #   run: mkdir downloads
           
-      - name: Add artifacts to publish to the temp folder
-        env:
-          FILE_PWD: ${{ secrets.FILE_PWD }}
-        run: |
-          echo 'alpha' > alpha.txt
-          zip -eP $FILE_PWD downloads/my_archive.zip alpha.txt
+      # # - name: Add artifacts to publish to the temp folder
+      # #   env:
+      # #     FILE_PWD: ${{ secrets.FILE_PWD }}
+      # #   run: |
+      # #     echo 'alpha' > alpha.txt
+      # #     zip -eP $FILE_PWD downloads/my_archive.zip alpha.txt
 
-      - name: Use the Upload Artifact GitHub Action
-        uses: actions/upload-artifact@v2
-        with: 
-          name: assets-for-download
-          path: downloads
-
-      - name: Checkout
-        uses: actions/checkout@v4
+      # - name: Use the Upload Artifact GitHub Action
+      #   uses: actions/upload-artifact@v2
+      #   with: 
+      #     name: assets-for-download
+      #     path: downloads
 
       - name: 'Configure git'
         # From https://github.com/orgs/community/discussions/26560#discussioncomment-3531273
